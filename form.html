@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pedido Ellos</title>
+  <style>
+    body { background: #000; color: #39ff14; font-family: Arial; padding: 20px; }
+    label { display: block; margin-top: 10px; }
+    input, select {
+      width: 100%; padding: 8px; margin-top: 5px;
+      background: #111; border: none; color: #39ff14; font-size: 16px;
+    }
+    button {
+      margin-top: 15px; background: #39ff14; border: none;
+      padding: 10px; font-size: 18px; color: #000; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pedido Ellos</h1>
+  <form id="pedidoForm">
+    <label>Nome</label>
+    <input type="text" name="nome" required />
+    <label>Perfume</label>
+    <select name="perfume" required>
+      <option value="">Selecione</option>
+      <option value="Perfume A">Perfume A</option>
+      <option value="Perfume B">Perfume B</option>
+      <option value="Perfume C">Perfume C</option>
+    </select>
+    <label>Quantidade</label>
+    <input type="number" name="quantidade" min="1" required />
+    <label>Data do pedido</label>
+    <input type="date" name="dataPedido" required />
+    <label>Data de entrega</label>
+    <input type="date" name="dataEntrega" required />
+    <label>Status</label>
+    <select name="status" required>
+      <option value="Pendente">Pendente</option>
+      <option value="Em produção">Em produção</option>
+      <option value="Enviado">Enviado</option>
+      <option value="Entregue">Entregue</option>
+    </select>
+    <button type="submit">Enviar Pedido</button>
+  </form>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbweVALvwLIOrNX7yBY7_IoVnMAZ03WknFc0Ts3saACegPcFJSSAgaGxoJIEBATuJAk1/exec';
+    const form = document.getElementById("pedidoForm");
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(() => alert("Pedido enviado com sucesso!"))
+        .catch(error => alert("Erro: " + error.message));
+      form.reset();
+    });
+  </script>
+</body>
+</html>

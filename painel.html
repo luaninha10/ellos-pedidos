@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel de Pedidos</title>
+  <style>
+    body { background: #000; color: #39ff14; font-family: Arial; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #39ff14; padding: 10px; text-align: left; }
+    th { background-color: #111; }
+  </style>
+</head>
+<body>
+  <h1>Painel de Pedidos - ELL⭑S</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Perfume</th>
+        <th>Qtd</th>
+        <th>Pedido</th>
+        <th>Entrega</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="tabelaPedidos"></tbody>
+  </table>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbweVALvwLIOrNX7yBY7_IoVnMAZ03WknFc0Ts3saACegPcFJSSAgaGxoJIEBATuJAk1/exec';
+    fetch(scriptURL)
+      .then(res => res.json())
+      .then(pedidos => {
+        const tbody = document.getElementById("tabelaPedidos");
+        pedidos.forEach(p => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${p.nome}</td>
+              <td>${p.perfume}</td>
+              <td>${p.quantidade}</td>
+              <td>${p.dataPedido}</td>
+              <td>${p.dataEntrega}</td>
+              <td>${p.status}</td>
+            </tr>`;
+        });
+      });
+  </script>
+</body>
+</html>
